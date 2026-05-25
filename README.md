@@ -1,5 +1,5 @@
 # odin-hangman
-An ASCII art illustrated, terminal implementation of [Hangman](https://www.theodinproject.com/lessons/ruby-hangman), written in Ruby, for [The Odin Project](https://www.theodinproject.com/). 
+An ASCII art-illustrated, terminal implementation of [Hangman](https://www.theodinproject.com/lessons/ruby-hangman), written in Ruby, for [The Odin Project](https://www.theodinproject.com/). 
 
 Halfway through the Ruby track, this project has taught or reinforced for me:
 
