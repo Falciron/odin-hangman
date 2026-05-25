@@ -9,8 +9,8 @@ class Player
   def self.make_guess
     loop do
       print("Enter a single letter (ex. 'a') to make a guess or enter 'save' to save and quit: ")
-      letter = gets.chomp
-      return letter if letter in ::GameRules::LETTER_SPACE || letter == 'save'
+      letter = gets.chomp.downcase
+      return letter if ((letter in ::GameRules::LETTER_SPACE) && letter.length == 1) || letter == 'save'
 
       puts('That was an invalid entry, but it will not be counted against you. Try again.')
     end
@@ -26,7 +26,7 @@ class Player
   def self.print_save_instructions
     print(
       'Type the name for your save file, then press Enter to save, ' \
-      'or press Enter immediately to return to your game: '
+      'or press Enter immediately to return to your game without saving: '
     )
   end
 

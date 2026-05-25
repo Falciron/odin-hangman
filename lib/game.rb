@@ -2,16 +2,22 @@
 # frozen_string_literal: true
 
 require 'fileutils'
+require 'json'
 require_relative 'hangman_stage'
 require_relative 'player'
 
 # Represents a single game of Hangman
 class Game
-  def initialize(word_list)
-    @secret_word = word_list.sample.chomp
-    @currently_solved_word = '_' * @secret_word.length
-    @letters_guessed = []
-    @remaining_mistakes = 7
+  def self.from_json(string)
+    data = JSON.parse string
+    new(data['secret_word'], data['currently_solved_word'], data['letters_guessed'], data['remaining_mistakes'])
+  end
+
+  def initialize(secret_word, currently_solved_word, letters_guessed = [], remaining_mistakes = 7)
+    @secret_word = secret_word
+    @currently_solved_word = currently_solved_word
+    @letters_guessed = letters_guessed
+    @remaining_mistakes = remaining_mistakes
   end
 
   # Starts the game of hangman, using the initialized values.
@@ -31,7 +37,11 @@ class Game
   private
 
   def print_intro
-    puts("The word you are trying to guess is #{@secret_word.length} letters in length. ")
+    if @letters_guessed.empty?
+      puts("The word you are trying to guess is #{@secret_word.length} letters in length. ")
+    else
+      print_current_status
+    end
   end
 
   def game_over?
@@ -54,10 +64,11 @@ class Game
   end
 
   def save_game_data(save_file_name)
-    save_game_directory = 'save_files'
+    save_game_directory = ::GameRules::SAVE_GAME_DIRECTORY_NAME
     FileUtils.mkdir_p(save_game_directory)
     File.open("#{save_game_directory}/#{save_file_name}", 'w+') do |file|
-      file.puts(Marshal.dump(self))
+      file.puts(JSON.dump({ secret_word: @secret_word, currently_solved_word: @currently_solved_word,
+                            letters_guessed: @letters_guessed, remaining_mistakes: @remaining_mistakes }))
     end
     exit
   end
