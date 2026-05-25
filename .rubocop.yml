@@ -1,6 +1,5 @@
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 3.4
 
 # This cop makes the hangman ASCII art unintelligible in source, though they print out just fine.
 Layout/LineContinuationLeadingSpace:

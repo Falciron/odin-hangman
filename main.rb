@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require_relative 'lib/game'
-require_relative 'lib/game_rules'
 require_relative 'lib/metagame_helper'
 
 word_list = MetagameHelper.construct_word_list
